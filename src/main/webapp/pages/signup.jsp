@@ -39,7 +39,7 @@
     <div class="container">
         <h2>Create Account</h2>
         <form id="signupForm" action="${pageContext.request.contextPath}/SignupServlet" method="post" onsubmit="return validateForm()">
- 
+
             <div class="form-group">
                 <input type="text" name="fullName" id="fullName" placeholder="Full Name" required>
             </div>
