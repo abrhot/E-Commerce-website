@@ -12,7 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-@WebServlet("/SignupServlet")
+@WebServlet("/SignupServlet")  // This should match the form action
 public class SignupServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -39,10 +39,10 @@ public class SignupServlet extends HttpServlet {
 
             if(rowsAffected > 0) {
                 // Registration successful
-                response.sendRedirect("pages/registration-success.jsp");
+                response.sendRedirect(request.getContextPath() + "/pages/registration-success.jsp");
             } else {
                 // Registration failed
-                response.sendRedirect("pages/signup.jsp?error=1");
+                response.sendRedirect(request.getContextPath() + "/pages/signup.jsp?error=1");
             }
 
         } catch (SQLException e) {
