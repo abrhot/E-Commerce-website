@@ -1,19 +1,19 @@
 package com.genuine.servlet;
 
 import com.genuine.dao.DBConnection;
-
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 
-@WebServlet("/SignupServlet")  // This should match the form action
+@WebServlet("/SignupServlet")
 public class SignupServlet extends HttpServlet {
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -22,37 +22,81 @@ public class SignupServlet extends HttpServlet {
         String email = request.getParameter("email");
         String phone = request.getParameter("phone");
         String password = request.getParameter("password");
+        String confirmPassword = request.getParameter("confirmPassword");
+
+        // Validate input parameters
+        if (fullName == null || username == null || email == null ||
+                phone == null || password == null || confirmPassword == null ||
+                fullName.trim().isEmpty() || username.trim().isEmpty() ||
+                email.trim().isEmpty() || phone.trim().isEmpty() ||
+                password.trim().isEmpty() || confirmPassword.trim().isEmpty()) {
+
+            response.sendRedirect("pages/signup.jsp?error=missing_fields");
+            return;
+        }
+
+        // Validate password match
+        if (!password.equals(confirmPassword)) {
+            response.sendRedirect("pages/signup.jsp?error=password_mismatch");
+            return;
+        }
+
+        Connection conn = null;
+        PreparedStatement pst = null;
 
         try {
-            Connection conn = DBConnection.getConnection();
-            PreparedStatement pst = conn.prepareStatement(
-                    "INSERT INTO users (full_name, username, email, phone, password) VALUES (?, ?, ?, ?, ?)"
-            );
+            // Get database connection
+            conn = DBConnection.getConnection();
+            if (conn == null) {
+                throw new SQLException("Database connection could not be established");
+            }
 
-            pst.setString(1, fullName);
-            pst.setString(2, username);
-            pst.setString(3, email);
-            pst.setString(4, phone);
+            // Prepare SQL statement
+            String sql = "INSERT INTO users (full_name, username, email, phone, password) VALUES (?, ?, ?, ?, ?)";
+            pst = conn.prepareStatement(sql);
+
+            // Set parameters
+            pst.setString(1, fullName.trim());
+            pst.setString(2, username.trim());
+            pst.setString(3, email.trim());
+            pst.setString(4, phone.trim());
             pst.setString(5, password); // In production, you should hash the password
 
+            // Execute the insert
             int rowsAffected = pst.executeUpdate();
 
-            if(rowsAffected > 0) {
+            if (rowsAffected > 0) {
                 // Registration successful
-                response.sendRedirect(request.getContextPath() + "/pages/registration-success.jsp");
+                response.sendRedirect(request.getContextPath() + "/pages/login.jsp?success=true");
             } else {
-                // Registration failed
-                response.sendRedirect(request.getContextPath() + "/pages/signup.jsp?error=1");
+                // No rows were affected
+                response.sendRedirect("pages/signup.jsp?error=insert_failed");
             }
 
         } catch (SQLException e) {
-            if(e.getMessage().contains("username_unique")) {
-                response.sendRedirect("pages/signup.jsp?error=username");
-            } else if(e.getMessage().contains("email_unique")) {
-                response.sendRedirect("pages/signup.jsp?error=email");
+            // Log the error
+            e.printStackTrace();
+            System.err.println("Database Error: " + e.getMessage());
+
+            // Handle specific SQL errors
+            if (e.getMessage().contains("username")) {
+                response.sendRedirect("pages/signup.jsp?error=username_exists");
+            } else if (e.getMessage().contains("email")) {
+                response.sendRedirect("pages/signup.jsp?error=email_exists");
             } else {
-                e.printStackTrace();
                 response.sendRedirect("pages/signup.jsp?error=unknown");
+            }
+        } finally {
+            // Close resources
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
     }
