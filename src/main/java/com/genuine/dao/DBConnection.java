@@ -2,14 +2,14 @@ package com.genuine.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
-// DBConnection.java
 public class DBConnection {
     private static Connection conn = null;
 
     public static Connection getConnection() {
         try {
-            if (conn == null) {
+            if (conn == null || conn.isClosed()) {
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 conn = DriverManager.getConnection(
                         "jdbc:mysql://localhost:3306/electronics_db",
@@ -21,5 +21,15 @@ public class DBConnection {
             e.printStackTrace();
         }
         return conn;
+    }
+
+    public static void closeConnection() {
+        try {
+            if (conn != null && !conn.isClosed()) {
+                conn.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

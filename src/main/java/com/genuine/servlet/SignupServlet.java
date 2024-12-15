@@ -4,6 +4,7 @@ import com.genuine.dao.DBConnection;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -62,6 +63,23 @@ public class SignupServlet extends HttpServlet {
             pst.setString(4, phone.trim());
             pst.setString(5, password); // In production, you should hash the password
 
+            // Add this before the insert operation
+            String checkSql = "SELECT username, email FROM users WHERE username = ? OR email = ?";
+            PreparedStatement checkStmt = conn.prepareStatement(checkSql);
+            checkStmt.setString(1, username.trim());
+            checkStmt.setString(2, email.trim());
+            ResultSet rs = checkStmt.executeQuery();
+
+            if (rs.next()) {
+                if (username.trim().equals(rs.getString("username"))) {
+                    response.sendRedirect("pages/signup.jsp?error=username_exists");
+                    return;
+                }
+                if (email.trim().equals(rs.getString("email"))) {
+                    response.sendRedirect("pages/signup.jsp?error=email_exists");
+                    return;
+                }
+            }
             // Execute the insert
             int rowsAffected = pst.executeUpdate();
 
