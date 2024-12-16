@@ -4,52 +4,17 @@
 <head>
     <title>Login</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+        /* Previous styles remain the same */
+        .signup-link {
+            text-align: center;
+            margin-top: 15px;
         }
-        .login-container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            width: 300px;
+        .signup-link a {
+            color: #4CAF50;
+            text-decoration: none;
         }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        .form-group input {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        .button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 100%;
-        }
-        .button:hover {
-            background-color: #45a049;
-        }
-        .error {
-            color: red;
-            margin-bottom: 10px;
+        .signup-link a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -72,6 +37,9 @@
                 <button type="submit" class="button">Login</button>
             </div>
         </form>
+        <div class="signup-link">
+            Don't have an account? <a href="${pageContext.request.contextPath}/signup.jsp">Sign Up</a>
+        </div>
     </div>
 </body>
 </html>
