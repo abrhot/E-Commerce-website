@@ -4,17 +4,75 @@
 <head>
     <title>Sign Up</title>
     <style>
-        /* Previous CSS remains the same */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .signup-container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-top: 5px;
+        }
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .login-link a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
         .phone-group {
             display: flex;
             gap: 10px;
         }
         .phone-group select {
             width: 200px;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
         }
         .phone-group input[type="tel"] {
             flex: 1;
@@ -22,11 +80,6 @@
         .country-code {
             width: 80px !important;
             background: #f9f9f9;
-            color: #666;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
         }
         .input-status {
             font-size: 0.9em;
@@ -63,8 +116,27 @@
                 <input type="email" name="email" id="email" required>
                 <div id="emailStatus" class="input-status"></div>
             </div>
-            <!-- Rest of the form fields remain the same -->
-            <!-- Country, phone, password fields... -->
+            <div class="form-group">
+                <label>Country</label>
+                <select name="country" id="country" required onchange="updateCountryCode()">
+                    <option value="">Select Country</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Phone Number</label>
+                <div class="phone-group">
+                    <input type="text" id="countryCode" name="countryCode" class="country-code" readonly>
+                    <input type="tel" name="phoneNumber" required pattern="[0-9]{10}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="password" required minlength="8">
+            </div>
+            <div class="form-group">
+                <label>Confirm Password</label>
+                <input type="password" name="confirmPassword" required minlength="8">
+            </div>
             <div class="form-group">
                 <button type="submit" class="button" id="submitButton">Sign Up</button>
             </div>
@@ -78,7 +150,6 @@
         let usernameTimer;
         let usernameValid = false;
 
-        // Debounce function for username checking
         function debounceUsername(username) {
             document.getElementById('usernameStatus').className = 'input-status checking';
             document.getElementById('usernameStatus').textContent = 'Checking...';
@@ -87,7 +158,6 @@
             usernameTimer = setTimeout(() => checkUsername(username), 500);
         }
 
-        // Username check function
         function checkUsername(username) {
             if (username.length < 4) {
                 document.getElementById('usernameStatus').className = 'input-status invalid';
@@ -116,11 +186,13 @@
                 });
         }
 
-        // Form validation
-        function validateForm() {
+        function validateForm(event) {
+            if (event) event.preventDefault();
+
             const password = document.querySelector('input[name="password"]').value;
             const confirmPassword = document.querySelector('input[name="confirmPassword"]').value;
             const email = document.getElementById('email').value;
+            const phoneNumber = document.querySelector('input[name="phoneNumber"]').value;
 
             if (!usernameValid) {
                 alert('Please choose a valid username.');
@@ -132,21 +204,35 @@
                 return false;
             }
 
-            // Submit form data using fetch to check email before final submission
+            if (!/^\d{10}$/.test(phoneNumber)) {
+                alert('Please enter a valid 10-digit phone number.');
+                return false;
+            }
+
+            // Create FormData object
             const formData = new FormData(document.getElementById('signupForm'));
 
-            // Prevent default form submission
-            event.preventDefault();
-
-            // Check email availability
+            // Check email availability and submit form
             fetch('${pageContext.request.contextPath}/check-email?email=' + encodeURIComponent(email))
                 .then(response => response.text())
                 .then(data => {
                     if (data === 'available') {
-                        // If email is available, submit the form
-                        document.getElementById('signupForm').submit();
+                        // Submit form data using fetch
+                        fetch('${pageContext.request.contextPath}/signup', {
+                            method: 'POST',
+                            body: formData
+                        })
+                        .then(response => {
+                            if (response.ok) {
+                                window.location.href = '${pageContext.request.contextPath}/dashboard.jsp';
+                            } else {
+                                alert('Signup failed. Please try again.');
+                            }
+                        })
+                        .catch(error => {
+                            alert('An error occurred during signup. Please try again.');
+                        });
                     } else {
-                        // If email is taken, show error message
                         document.getElementById('emailStatus').className = 'input-status invalid';
                         document.getElementById('emailStatus').textContent = 'This email is already registered';
                         document.getElementById('email').focus();
@@ -159,12 +245,17 @@
             return false;
         }
 
-        // Country code handling remains the same
         const countries = [
             { name: "United States", code: "+1" },
             { name: "India", code: "+91" },
             { name: "United Kingdom", code: "+44" },
-            // Add more countries as needed
+            { name: "Canada", code: "+1" },
+            { name: "Australia", code: "+61" },
+            { name: "Germany", code: "+49" },
+            { name: "France", code: "+33" },
+            { name: "Italy", code: "+39" },
+            { name: "Spain", code: "+34" },
+            { name: "Japan", code: "+81" }
         ];
 
         // Populate country dropdown
@@ -183,6 +274,9 @@
                 document.getElementById('countryCode').value = country.code;
             }
         }
+
+        // Set initial country code
+        updateCountryCode();
     </script>
 </body>
 </html>
