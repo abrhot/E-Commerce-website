@@ -122,7 +122,6 @@
             <div class="form-group">
                 <label>Email</label>
                 <input type="email" name="email" id="email" required>
-                <div id="emailStatus" class="input-status"></div>
             </div>
             <div class="form-group">
                 <label>Country</label>
@@ -149,6 +148,7 @@
                 <button type="submit" class="button" id="submitButton">Sign Up</button>
             </div>
         </form>
+
         <div class="login-link">
             Already have an account? <a href="${pageContext.request.contextPath}/login.jsp">Login</a>
         </div>

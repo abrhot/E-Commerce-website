@@ -75,7 +75,9 @@ public class UserDAO {
         }
 
         public boolean createUser(User user) {
-            String sql = "INSERT INTO users (full_name, username, email, phone_number, password) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO users (full_name, username, email, phone_number, country_code, country_name, password) "
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+
             try (Connection conn = DBConnection.getConnection();
                  PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -84,6 +86,9 @@ public class UserDAO {
                 pstmt.setString(3, user.getEmail());
                 pstmt.setString(4, user.getPhoneNumber());
                 pstmt.setString(5, user.getPassword()); // In production, hash the password
+                pstmt.setString(5, user.getCountryCode());
+                pstmt.setString(6, user.getCountryName());
+
 
                 int affectedRows = pstmt.executeUpdate();
                 if (affectedRows > 0) {

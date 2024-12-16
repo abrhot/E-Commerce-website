@@ -1,6 +1,9 @@
 package com.genuine.model;
 
+import com.genuine.dao.DBConnection;
+
 import java.security.Timestamp;
+import java.sql.*;
 
 public class User {
     private int id;
@@ -62,4 +65,34 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public boolean createUser(User user) {
+        String sql = "INSERT INTO users (full_name, username, email, phone_number, country_code, country_name, password) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
+            pstmt.setString(1, user.getFullName());
+            pstmt.setString(2, user.getUsername());
+            pstmt.setString(3, user.getEmail());
+            pstmt.setString(4, user.getPhoneNumber());
+            pstmt.setString(5, user.getCountryCode());
+            pstmt.setString(6, user.getCountryName());
+            pstmt.setString(7, user.getPassword()); // Hash password in production
+
+            int affectedRows = pstmt.executeUpdate();
+            if (affectedRows > 0) {
+                ResultSet generatedKeys = pstmt.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    user.setId(generatedKeys.getInt(1));
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error creating user: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }
