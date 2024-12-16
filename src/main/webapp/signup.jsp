@@ -95,11 +95,19 @@
             color: #666;
             font-style: italic;
         }
+        .error-message {
+            color: red;
+            margin-bottom: 15px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
     <div class="signup-container">
         <h2>Sign Up</h2>
+        <% if (request.getAttribute("error") != null) { %>
+            <div class="error-message"><%= request.getAttribute("error") %></div>
+        <% } %>
         <form id="signupForm" action="${pageContext.request.contextPath}/signup" method="post" onsubmit="return validateForm()">
             <div class="form-group">
                 <label>Full Name</label>
@@ -186,12 +194,9 @@
                 });
         }
 
-        function validateForm(event) {
-            if (event) event.preventDefault();
-
+        function validateForm() {
             const password = document.querySelector('input[name="password"]').value;
             const confirmPassword = document.querySelector('input[name="confirmPassword"]').value;
-            const email = document.getElementById('email').value;
             const phoneNumber = document.querySelector('input[name="phoneNumber"]').value;
 
             if (!usernameValid) {
@@ -209,40 +214,7 @@
                 return false;
             }
 
-            // Create FormData object
-            const formData = new FormData(document.getElementById('signupForm'));
-
-            // Check email availability and submit form
-            fetch('${pageContext.request.contextPath}/check-email?email=' + encodeURIComponent(email))
-                .then(response => response.text())
-                .then(data => {
-                    if (data === 'available') {
-                        // Submit form data using fetch
-                        fetch('${pageContext.request.contextPath}/signup', {
-                            method: 'POST',
-                            body: formData
-                        })
-                        .then(response => {
-                            if (response.ok) {
-                                window.location.href = '${pageContext.request.contextPath}/dashboard.jsp';
-                            } else {
-                                alert('Signup failed. Please try again.');
-                            }
-                        })
-                        .catch(error => {
-                            alert('An error occurred during signup. Please try again.');
-                        });
-                    } else {
-                        document.getElementById('emailStatus').className = 'input-status invalid';
-                        document.getElementById('emailStatus').textContent = 'This email is already registered';
-                        document.getElementById('email').focus();
-                    }
-                })
-                .catch(error => {
-                    alert('An error occurred while checking email availability. Please try again.');
-                });
-
-            return false;
+            return true;
         }
 
         const countries = [
