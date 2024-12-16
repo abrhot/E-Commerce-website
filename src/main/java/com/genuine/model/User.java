@@ -1,5 +1,7 @@
 package com.genuine.model;
 
+import java.security.Timestamp;
+
 public class User {
     private int id;
     private String fullName;
@@ -9,6 +11,7 @@ public class User {
     private String countryCode;
     private String countryName;
     private String password;
+    private Timestamp createdAt;
 
     // Getters and Setters
     public int getId() {
