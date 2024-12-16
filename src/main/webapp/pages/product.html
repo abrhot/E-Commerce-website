@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Geniufy - Your E-commerce Platform</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Include Font Awesome for the star icons and cart icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <style>
+      
+    </style>
+  </head>
+
+  <body class="d-flex flex-column min-vh-100">
+    <!-- Header -->
+    <header class="bg-dark text-white p-3">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+          <a class="navbar-brand d-flex align-items-center" href="home.html">
+            <img
+              src="Images/logo.png"
+              alt="Logo"
+              class="rounded-circle"
+              style="
+                width: 40px;
+                height: 40px;
+                object-fit: cover;
+                margin-right: 10px;
+              "
+            />
+            Geniufy
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="home.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="product.html">Products</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="order.html">Orders</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="cart.html">Carts</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="about.html">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="login.html">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="signup.html">Signup</a>
+              </li>
+            </ul>
+          </div>
+          <!-- Avatar next to the hamburger -->
+          
+        </nav>
+      </div>
+    </header>
+
+    <!-- Search & Filter Section -->
+    <div class="container my-4">
+      <div class="row justify-content-center align-items-center">
+        <div class="col-md-6">
+          <input
+            type="text"
+            id="searchBar"
+            class="form-control"
+            placeholder="Search for products..."
+          />
+        </div>
+        <div class="col-md-3">
+          <select id="filterDropdown" class="form-select">
+            <option value="">All</option>
+            <option value="Phones">Phones</option>
+            <option value="Laptops">Laptops</option>
+            <option value="Desktops">Desktops</option>
+            <option value="Accessories">Accessories</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="flex-grow-1 container my-5">
+      <h2 class="text-center pb-3">Products</h2>
+      <div class="container d-flex justify-content-center mt-50 mb-50">
+        <div class="row">
+
+          <!-- Product 1 -->
+          <div class="col-md-4 mt-2">
+            <div class="card h-100 shadow-sm" data-category="Phones">
+              <!-- Product Image Section -->
+              <div class="card-img-actions text-center pt-3">
+                <img
+                  src="Images/Products/p1_s23_ultra.jpeg"
+                  class="img-fluid"
+                  width="96"
+                  height="200"
+                  alt="Product Image"
+                />
+              </div>
+
+              <!-- Product Details Section -->
+              <div class="card-body bg-light text-center">
+                <div class="mb-2">
+                  <h6
+                    class="card-title text-primary"
+                    style="cursor: pointer"
+                    data-bs-toggle="modal"
+                    data-bs-target="#product1Modal"
+                  >
+                    Samsung Galaxy s23 Ultra
+                  </h6>
+                  <a href="#" class="text-muted" data-abc="true">Phone</a>
+                </div>
+
+                <!-- Product Price Section -->
+                <h3 class="mb-2 font-weight-bold text-dark">$750.99</h3>
+
+                <!-- Star Ratings Section -->
+                <div class="text-warning mb-2">
+                  <i class="fa fa-star star"></i>
+                  <i class="fa fa-star star"></i>
+                  <i class="fa fa-star star"></i>
+                  <i class="fa fa-star star"></i>
+                  <i class="fa fa-star-o star"></i>
+                </div>
+
+                <div class="text-muted mb-3">34 reviews</div>
+
+                <!-- Add to Cart Button -->
+                <button type="button" class="btn btn-primary">
+                  <i class="fa fa-cart-plus me-2"></i> Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Modal for Product 1 -->
+          <div
+            class="modal fade"
+            id="product1Modal"
+            tabindex="-1"
+            aria-labelledby="product1Label"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content rounded-3 shadow-lg">
+                <div class="modal-header bg-dark text-white">
+                  <h6 class="modal-title" id="product1Label">
+                    Samsung Galaxy S23 Ultra
+                  </h6>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <div class="text-center mb-3">
+                    <img
+                      src="Images/Products/p1_s23_ultra.jpeg"
+                      class="img-fluid mb-3"
+                      alt="Samsung Galaxy S23 Ultra"
+                      style="max-width: 200px"
+                    />
+                  </div>
+                  <p><strong>Price:</strong> $750.99</p>
+                  <p>
+                    <strong>Description:</strong> Powerful Android phone with
+                    8GB RAM and 500GB storage.
+                  </p>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 2 -->
+          <div class="col-md-4 mt-2">
+            <div class="card h-100 shadow-sm" data-category="Phones">
+              <!-- Product Image Section -->
+              <div class="card-img-actions text-center pt-3">
+                <img
+                  src="Images/Products/p2_iphone_13_pm.jpeg"
+                  class="img-fluid"
+                  width="96"
+                  height="200"
+                  alt="Product Image"
+                />
+              </div>
+
+              <!-- Product Details Section -->
+              <div class="card-body bg-light text-center">
+                <div class="mb-2">
+                  <h6
+                    class="card-title text-primary"
+                    style="cursor: pointer"
+                    data-bs-toggle="modal"
+                    data-bs-target="#product2Modal"
+                  >
+                    Iphone 13 Pro Max
+                  </h6>
+                  <a href="#" class="text-muted" data-abc="true">Phone</a>
+                </div>
+
+                <!-- Product Price Section -->
+                <h3 class="mb-2 font-weight-bold text-dark">$580.99</h3>
+
+                <!-- Star Ratings Section -->
+                <div class="text-warning mb-2">
+                  <i class="fa fa-star star"></i>
+                  <i class="fa fa-star star"></i>
+                  <i class="fa fa-star star"></i>
+                  <i class="fa fa-star star"></i>
+                  <i class="fa fa-star-o star"></i>
+                </div>
+
+                <div class="text-muted mb-3">34 reviews</div>
+
+                <!-- Add to Cart Button -->
+                <button type="button" class="btn btn-primary">
+                  <i class="fa fa-cart-plus me-2"></i> Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Modal for Product 2 -->
+          <div
+            class="modal fade"
+            id="product2Modal"
+            tabindex="-1"
+            aria-labelledby="product1Label"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content rounded-3 shadow-lg">
+                <div class="modal-header bg-dark text-white">
+                  <h6 class="modal-title" id="product1Label">
+                    Iphone 13 Pro Max
+                  </h6>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <div class="text-center mb-3">
+                    <img
+                      src="Images/Products/p2_iphone_13_pm.jpeg"
+                      class="img-fluid mb-3"
+                      alt="Samsung Galaxy S23 Ultra"
+                      style="max-width: 200px"
+                    />
+                  </div>
+                  <p><strong>Price:</strong> $750.99</p>
+                  <p>
+                    <strong>Description:</strong> Powerful IOS phone with 8GB
+                    RAM and 1TR storage.
+                  </p>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Product 3 -->
+          <div class="col-md-4 mt-2">
+            <div id="product-card" class="card h-100 shadow-sm" data-category="Laptops">
+              <!-- Product Image Section -->
+              <div class="card-img-actions text-center pt-3">
+                <img
+                  src="Images/Products/p3_hp_envy_2.jpeg"
+                  class="img-fluid"
+                  width="96"
+                  height="200"
+                  alt="Product Image"
+                />
+              </div>
+
+              <!-- Product Details Section -->
+              <div class="card-body bg-light text-center">
+                <div class="mb-2">
+                  <h6
+                    class="card-title text-primary"
+                    style="cursor: pointer"
+                    data-bs-toggle="modal"
+                    data-bs-target="#product3Modal"
+                  >
+                    HP Envy x360 2-in-1
+                  </h6>
+
+                  <a href="#" class="text-muted" data-abc="true">Laptops</a>
+                </div>
+
+                <!-- Product Price Section -->
+                <h3 class="mb-2 font-weight-bold text-dark">$1250.99</h3>
+
+                <!-- Star Ratings Section -->
+                <div class="text-warning mb-2">
+                  <i class="fa fa-star star"></i>
+                  <i class="fa fa-star star"></i>
+                  <i class="fa fa-star star"></i>
+                  <i class="fa fa-star star"></i>
+                  <i class="fa fa-star-o star"></i>
+                </div>
+
+                <div class="text-muted mb-3">34 reviews</div>
+
+                <!-- Add to Cart Button -->
+                <button type="button" class="btn btn-primary">
+                  <i class="fa fa-cart-plus me-2"></i> Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Modal for Product 3 -->
+          <div
+            class="modal fade"
+            id="product3Modal"
+            tabindex="-1"
+            aria-labelledby="product3Label"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content rounded-3 shadow-lg">
+                <div class="modal-header bg-dark text-white">
+                  <h6 class="modal-title" id="product1Label">
+                    HP Envy x360 2-in-1
+                  </h6>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <div class="text-center mb-3">
+                    <img
+                      src="Images/Products/p3_hp_envy_2.jpeg"
+                      class="img-fluid mb-3"
+                      alt="Samsung Galaxy S23 Ultra"
+                      style="max-width: 200px"
+                    />
+                  </div>
+                  <p><strong>Price:</strong> $750.99</p>
+                  <p>
+                    <strong>Description:</strong> Powerful HP Laptop with 16 RAM
+                    and 1TR SSD storage.
+                  </p>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 4 -->
+          <div class="col-md-4 mt-2">
+            <div class="card h-100 shadow-sm" data-category="Desktops">
+              <!-- Product Image Section -->
+              <div class="card-img-actions text-center pt-3">
+                <img
+                  src="Images/Products/p4_apple_desktop_2.jpeg"
+                  class="img-fluid"
+                  width="96"
+                  height="200"
+                  alt="Product Image"
+                />
+              </div>
+
+              <!-- Product Details Section -->
+              <div class="card-body bg-light text-center">
+                <div class="mb-2">
+                  <h6
+                    class="card-title text-primary"
+                    style="cursor: pointer"
+                    data-bs-toggle="modal"
+                    data-bs-target="#product4Modal"
+                  >
+                    Apple iMac 5K
+                  </h6>
+                  <a href="#" class="text-muted" data-abc="true">Desktops</a>
+                </div>
+
+                <!-- Product Price Section -->
+                <h3 class="mb-2 font-weight-bold text-dark">$1250.99</h3>
+
+                <!-- Star Ratings Section -->
+                <div class="text-warning mb-2">
+                  <i class="fa fa-star star"></i>
+                  <i class="fa fa-star star"></i>
+                  <i class="fa fa-star star"></i>
+                  <i class="fa fa-star star"></i>
+                  <i class="fa fa-star-o star"></i>
+                </div>
+
+                <div class="text-muted mb-3">34 reviews</div>
+
+                <!-- Add to Cart Button -->
+                <button type="button" class="btn btn-primary">
+                  <i class="fa fa-cart-plus me-2"></i> Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- Modal for Product 4 -->
+          <div
+            class="modal fade"
+            id="product4Modal"
+            tabindex="-1"
+            aria-labelledby="product4Label"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content rounded-3 shadow-lg">
+                <div class="modal-header bg-dark text-white">
+                  <h6 class="modal-title" id="product1Label">Apple iMac 5K</h6>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <div class="text-center mb-3">
+                    <img
+                      src="Images/Products/p4_apple_desktop_2.jpeg"
+                      class="img-fluid mb-3"
+                      alt="Samsung Galaxy S23 Ultra"
+                      style="max-width: 200px"
+                    />
+                  </div>
+                  <p><strong>Price:</strong> $1250.99</p>
+                  <p>
+                    <strong>Description:</strong> Powerful HP Laptop with 16 RAM
+                    and 1TR SSD storage.
+                  </p>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 5 -->
+          <div class="col-md-4 mt-2">
+            <div id="product-card" class="card h-100 shadow-sm" data-category="Accessories">
+              <!-- Product Image Section -->
+              <div class="card-img-actions text-center pt-3">
+                <img
+                  src="Images/Products/p5_headphone.jpeg"
+                  class="img-fluid"
+                  width="96"
+                  height="200"
+                  alt="Product Image"
+                />
+              </div>
+
+              <!-- Product Details Section -->
+              <div class="card-body bg-light text-center">
+                <div class="mb-2">
+                  <h6
+                    class="card-title text-primary"
+                    style="cursor: pointer"
+                    data-bs-toggle="modal"
+                    data-bs-target="#product5Modal"
+                  >
+                    Beats Studio Pro
+                  </h6>
+                  <a href="#" class="text-muted" data-abc="true">Accessories</a>
+                </div>
+
+                <!-- Product Price Section -->
+                <h3 class="mb-2 font-weight-bold text-dark">$350.99</h3>
+
+                <!-- Star Ratings Section -->
+                <div class="text-warning mb-2">
+                  <i class="fa fa-star star"></i>
+                  <i class="fa fa-star star"></i>
+                  <i class="fa fa-star star"></i>
+                  <i class="fa fa-star star"></i>
+                  <i class="fa fa-star-o star"></i>
+                </div>
+
+                <div class="text-muted mb-3">34 reviews</div>
+
+                <!-- Add to Cart Button -->
+                <button type="button" class="btn btn-primary">
+                  <i class="fa fa-cart-plus me-2"></i> Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Modal for Product 5 -->
+          <div
+            class="modal fade"
+            id="product5Modal"
+            tabindex="-1"
+            aria-labelledby="product5Label"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content rounded-3 shadow-lg">
+                <div class="modal-header bg-dark text-white">
+                  <h6 class="modal-title" id="product1Label">
+                    Beats Studio Pro
+                  </h6>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <div class="text-center mb-3">
+                    <img
+                      src="Images/Products/p5_headphone.jpeg"
+                      class="img-fluid mb-3"
+                      alt="Samsung Galaxy S23 Ultra"
+                      style="max-width: 200px"
+                    />
+                  </div>
+                  <p><strong>Price:</strong> $350.99</p>
+                  <p>
+                    <strong>Description:</strong> Powerful and Smooth sound with
+                    noise canceller.
+                  </p>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Product 6 -->
+          <div class="col-md-4 mt-2">
+            <div class="card h-100 shadow-sm" data-category="Accessories">
+              <!-- Product Image Section -->
+              <div class="card-img-actions text-center pt-3">
+                <img
+                  src="Images/Products/p6_headphone.jpeg"
+                  class="img-fluid"
+                  width="96"
+                  height="200"
+                  alt="Product Image"
+                />
+              </div>
+
+              <!-- Product Details Section -->
+              <div class="card-body bg-light text-center">
+                <div class="mb-2">
+                  <h6
+                    class="card-title text-primary"
+                    style="cursor: pointer"
+                    data-bs-toggle="modal"
+                    data-bs-target="#product6Modal"
+                  >
+                    Zeb-Thunder Pro
+                  </h6>
+
+                  <a href="#" class="text-muted" data-abc="true">Accessories</a>
+                </div>
+
+                <!-- Product Price Section -->
+                <h3 class="mb-2 font-weight-bold text-dark">$450.99</h3>
+
+                <!-- Star Ratings Section -->
+                <div class="text-warning mb-2">
+                  <i class="fa fa-star star"></i>
+                  <i class="fa fa-star star"></i>
+                  <i class="fa fa-star star"></i>
+                  <i class="fa fa-star star"></i>
+                  <i class="fa fa-star-o star"></i>
+                </div>
+
+                <div class="text-muted mb-3">34 reviews</div>
+
+                <!-- Add to Cart Button -->
+                <button type="button" class="btn btn-primary">
+                  <i class="fa fa-cart-plus me-2"></i> Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Modal for Product 5 -->
+          <div
+            class="modal fade"
+            id="product6Modal"
+            tabindex="-1"
+            aria-labelledby="product6Label"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content rounded-3 shadow-lg">
+                <div class="modal-header bg-dark text-white">
+                  <h6 class="modal-title" id="product1Label">
+                    Zeb-Thunder Pro
+                  </h6>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <div class="text-center mb-3">
+                    <img
+                      src="Images/Products/p6_headphone.jpeg"
+                      class="img-fluid mb-3"
+                      alt="Samsung Galaxy S23 Ultra"
+                      style="max-width: 200px"
+                    />
+                  </div>
+                  <p><strong>Price:</strong> $450.99</p>
+                  <p>
+                    <strong>Description:</strong> Powerful and Smooth sound with
+                    noise canceller.
+                  </p>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-3 mt-auto">
+      <div class="container text-center">
+        <p>© 2024 Geniufy. All Rights Reserved.</p>
+        <a href="#" class="text-white me-3">Privacy Policy</a>
+        <a href="#" class="text-white">Terms of Service</a>
+      </div>
+    </footer>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    
+    <!-- Product Categories -->
+    <script>
+      document.getElementById('filterDropdown').addEventListener('change', function() {
+        const selectedCategory = this.value; // Get the selected category
+        const cards = document.querySelectorAll('.card'); // Select all product cards
+    
+        cards.forEach(card => {
+          const cardCategory = card.getAttribute('data-category'); // Get the card's category
+          // Show or hide based on the selection
+          card.style.display = (selectedCategory === '' || cardCategory === selectedCategory) 
+            ? 'block' 
+            : 'none';
+        });
+      });
+    </script>
+    
+  </body>
+</html>
