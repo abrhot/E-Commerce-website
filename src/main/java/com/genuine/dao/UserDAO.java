@@ -74,33 +74,32 @@ public class UserDAO {
             return false;
         }
 
-        public boolean createUser(User user) {
-            String sql = "INSERT INTO users (full_name, username, email, phone_number, country_code, country_name, password) "
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+    public boolean createUser(User user) {
+        String sql = "INSERT INTO users (full_name, username, email, phone_number, country_code, country_name, password) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-            try (Connection conn = DBConnection.getConnection();
-                 PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-                pstmt.setString(1, user.getFullName());
-                pstmt.setString(2, user.getUsername());
-                pstmt.setString(3, user.getEmail());
-                pstmt.setString(4, user.getPhoneNumber());
-                pstmt.setString(5, user.getPassword()); // In production, hash the password
-                pstmt.setString(5, user.getCountryCode());
-                pstmt.setString(6, user.getCountryName());
+            pstmt.setString(1, user.getFullName());
+            pstmt.setString(2, user.getUsername());
+            pstmt.setString(3, user.getEmail());
+            pstmt.setString(4, user.getPhoneNumber());
+            pstmt.setString(5, user.getCountryCode());
+            pstmt.setString(6, user.getCountryName());
+            pstmt.setString(7, user.getPassword()); // In production, hash the password
 
-
-                int affectedRows = pstmt.executeUpdate();
-                if (affectedRows > 0) {
-                    ResultSet generatedKeys = pstmt.getGeneratedKeys();
-                    if (generatedKeys.next()) {
-                        user.setId(generatedKeys.getInt(1));
-                        return true;
-                    }
+            int affectedRows = pstmt.executeUpdate();
+            if (affectedRows > 0) {
+                ResultSet generatedKeys = pstmt.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    user.setId(generatedKeys.getInt(1));
+                    return true;
                 }
-            } catch (SQLException e) {
-                e.printStackTrace();
             }
-            return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        return false;
+    }
     }

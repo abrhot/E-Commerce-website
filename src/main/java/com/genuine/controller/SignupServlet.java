@@ -26,14 +26,6 @@ public class SignupServlet extends HttpServlet {
             user.setPhoneNumber(request.getParameter("phoneNumber"));
             user.setCountryName(request.getParameter("country"));
             user.setPassword(request.getParameter("password"));
-            String countryCode = request.getParameter("countryCode");
-            String countryName = request.getParameter("countryName");
-
-// Pass these to the User object
-            user.setCountryCode(countryCode);
-            user.setCountryName(countryName);
-
-
 
             if (userDAO.createUser(user)) {
                 HttpSession session = request.getSession(true);

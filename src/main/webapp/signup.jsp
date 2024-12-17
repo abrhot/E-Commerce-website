@@ -136,6 +136,13 @@
                     <input type="tel" name="phoneNumber" required pattern="[0-9]{10}">
                 </div>
             </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="email" id="email" required onblur="checkEmail(this.value)">
+                <div id="emailStatus" class="input-status"></div>
+            </div>
+
             <div class="form-group">
                 <label>Password</label>
                 <input type="password" name="password" required minlength="8">
@@ -157,6 +164,36 @@
     <script>
         let usernameTimer;
         let usernameValid = false;
+        // Add this to your existing JavaScript in signup.jsp
+        let emailValid = false;
+
+        function checkEmail(email) {
+            fetch('${pageContext.request.contextPath}/check-email?email=' + encodeURIComponent(email))
+                .then(response => response.text())
+                .then(data => {
+                    if (data === 'available') {
+                        document.getElementById('emailStatus').className = 'input-status valid';
+                        document.getElementById('emailStatus').textContent = 'Email is available';
+                        emailValid = true;
+                    } else {
+                        document.getElementById('emailStatus').className = 'input-status invalid';
+                        document.getElementById('emailStatus').textContent = 'Email is already taken';
+                        emailValid = false;
+                    }
+                });
+        }
+
+        // Update validateForm to include email check
+        function validateForm() {
+            // ... existing validation code ...
+
+            if (!emailValid) {
+                alert('Please use a different email address.');
+                return false;
+            }
+
+            return true;
+        }
 
         function debounceUsername(username) {
             document.getElementById('usernameStatus').className = 'input-status checking';
@@ -246,6 +283,7 @@
                 document.getElementById('countryCode').value = country.code;
             }
         }
+
 
         // Set initial country code
         updateCountryCode();
