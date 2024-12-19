@@ -1,34 +1,25 @@
 package com.genuine.model;
 
+import java.time.LocalDateTime;
+
 public class Product {
-    private int id;
-    private String name;
-    private String category;
-    private double price;
-    private int stock;
+        private int productId;
+        private String category;
+        private String name;
+        private String company;
+        private double price;
+        private String description;
+        private String imagePath;
+        private LocalDateTime createdAt;
+        private Object specs; // Can be MobileSpec, LaptopSpec, etc.
 
-    public Product() {
-        this.id = id;
-        this.name = name;
-        this.category = category;
-        this.price = price;
-        this.stock = stock;
+
+    public int getProductId() {
+        return productId;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
     public String getCategory() {
@@ -39,6 +30,22 @@ public class Product {
         this.category = category;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
     public double getPrice() {
         return price;
     }
@@ -47,12 +54,32 @@ public class Product {
         this.price = price;
     }
 
-    public int getStock() {
-        return stock;
+    public String getDescription() {
+        return description;
     }
 
-    public void setStock(int stock) {
-        this.stock = stock;
+    public void setDescription(String description) {
+        this.description = description;
     }
-// Constructor, getters, and setters
-}
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+    public void setSpecs(Object specs) {
+        this.specs = specs;
+    }
+
+// Getters and setters
+    }

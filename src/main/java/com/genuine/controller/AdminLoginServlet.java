@@ -12,7 +12,7 @@ import java.io.IOException;
 public class AdminLoginServlet extends HttpServlet {
     // Hard-coded admin credentials (in real applications, use secure storage)
     private static final String ADMIN_USERNAME = "admin";
-    private static final String ADMIN_PASSWORD = "admin123";
+    private static final String ADMIN_PASSWORD = "admin@123";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
