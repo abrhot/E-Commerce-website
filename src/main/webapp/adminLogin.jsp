@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login</title>
+    <title>Admin Login</title>
     <style>
         .login-container {
             width: 300px;
@@ -25,7 +25,7 @@
             border-radius: 4px;
         }
         .button {
-            background-color: #000000;
+            background-color: #2196F3;
             color: white;
             padding: 10px 15px;
             border: none;
@@ -34,62 +34,47 @@
             width: 100%;
         }
         .button:hover {
-            background-color: #45a049;
+            background-color: #1976D2;
         }
         .error {
             color: red;
             margin-bottom: 15px;
         }
-        .signup-link {
+        .back-link {
             text-align: center;
             margin-top: 15px;
         }
-        .signup-link a {
-            color: #4CAF50;
+        .back-link a {
+            color: #2196F3;
             text-decoration: none;
         }
-        .signup-link a:hover {
+        .back-link a:hover {
             text-decoration: underline;
-        }
-        .admin-button {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            background-color: #2196F3;
-            color: white;
-            text-align: center;
-            text-decoration: none;
-            border-radius: 4px;
-            margin-top: 15px;
-        }
-        .admin-button:hover {
-            background-color: #1976D2;
         }
     </style>
 </head>
 <body>
     <div class="login-container">
-        <h2>Login</h2>
+        <h2>Admin Login</h2>
         <% if(request.getAttribute("error") != null) { %>
             <div class="error">${error}</div>
         <% } %>
-        <form action="${pageContext.request.contextPath}/login" method="post">
+        <form action="${pageContext.request.contextPath}/adminLogin" method="post">
             <div class="form-group">
-                <label>Username or Email</label>
-                <input type="text" name="loginId" required>
+                <label>Admin Username</label>
+                <input type="text" name="adminUsername" required>
             </div>
             <div class="form-group">
-                <label>Password</label>
-                <input type="password" name="password" required>
+                <label>Admin Password</label>
+                <input type="password" name="adminPassword" required>
             </div>
             <div class="form-group">
-                <button type="submit" class="button">Login</button>
+                <button type="submit" class="button">Login as Admin</button>
             </div>
         </form>
-        <div class="signup-link">
-            Don't have an account? <a href="${pageContext.request.contextPath}/signup.jsp">Sign Up</a>
+        <div class="back-link">
+            <a href="${pageContext.request.contextPath}/login.jsp">Back to User Login</a>
         </div>
-        <a href="${pageContext.request.contextPath}/adminLogin.jsp" class="admin-button">Admin Login</a>
     </div>
 </body>
 </html>
