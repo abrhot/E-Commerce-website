@@ -14,254 +14,281 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* Previous styles remain... */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
 
-        /* Shopping Cart Styles */
-        .cart-container {
-            position: fixed;
-            top: 80px;
-            right: -300px;
-            width: 300px;
-            height: calc(100vh - 80px);
+        :root {
+            --primary-color: #000000;
+            --secondary-color: #ffffff;
+            --accent-color: #333333;
+            --hover-color: #555555;
+        }
+
+        body {
             background-color: var(--secondary-color);
-            box-shadow: -2px 0 5px rgba(0,0,0,0.1);
-            transition: right 0.3s ease;
-            z-index: 999;
         }
 
-        .cart-container.active {
-            right: 0;
-        }
-
-        .cart-header {
-            padding: 1rem;
+        /* Navigation Bar */
+        .navbar {
             background-color: var(--primary-color);
-            color: var(--secondary-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .cart-items {
-            padding: 1rem;
-            overflow-y: auto;
-            height: calc(100% - 140px);
-        }
-
-        .cart-item {
-            display: flex;
-            padding: 0.5rem;
-            border-bottom: 1px solid #eee;
-            gap: 1rem;
-        }
-
-        .cart-total {
-            padding: 1rem;
-            border-top: 1px solid #eee;
-            position: absolute;
-            bottom: 0;
+            padding: 1rem 2rem;
+            position: fixed;
             width: 100%;
-            background-color: var(--secondary-color);
-        }
-
-        .cart-toggle {
-            position: fixed;
-            top: 90px;
-            right: 20px;
-            background-color: var(--primary-color);
-            color: var(--secondary-color);
-            padding: 0.5rem;
-            border-radius: 50%;
-            cursor: pointer;
+            top: 0;
             z-index: 1000;
         }
 
-        /* Product View Styles */
-        .view-controls {
+        .nav-container {
             display: flex;
-            gap: 1rem;
-            padding: 1rem 2rem;
-            background-color: #f5f5f5;
-            margin-bottom: 1rem;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        .view-button {
-            padding: 0.5rem 1rem;
+        .logo {
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #cccccc;
+        }
+
+        .user-icon {
+            font-size: 1.2rem;
+        }
+
+        /* Search Bar */
+        .search-container {
+            margin-top: 80px;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-bar {
+            max-width: 600px;
+            width: 100%;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 2px solid var(--primary-color);
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .search-button {
+            padding: 0.8rem 1.5rem;
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            background-color: var(--secondary-color);
+            transition: background-color 0.3s ease;
         }
 
-        .view-button.active {
-            background-color: var(--primary-color);
-            color: var(--secondary-color);
+        .search-button:hover {
+            background-color: var(--hover-color);
         }
 
-        .product-section {
+        /* Popular Section */
+        .popular-section {
             padding: 2rem;
             max-width: 1200px;
             margin: 0 auto;
         }
 
-        .product-category {
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .popular-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
             margin-bottom: 2rem;
         }
 
-        .product-list {
+        .popular-item {
+            background-color: #f5f5f5;
+            height: 200px;
+            border-radius: 8px;
             display: flex;
-            overflow-x: auto;
-            gap: 1rem;
-            padding: 1rem 0;
-            scrollbar-width: thin;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #888;
         }
 
-        .product-card {
-            min-width: 250px;
+        /* Categories Section */
+        .categories-section {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .category-card {
             background-color: var(--secondary-color);
             border: 1px solid #eee;
             border-radius: 8px;
             padding: 1rem;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .product-image {
-            height: 150px;
-            background-color: #f5f5f5;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .product-details {
             text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .add-to-cart {
-            background-color: var(--primary-color);
-            color: var(--secondary-color);
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 0.5rem;
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .category-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .category-name {
+            font-size: 1.1rem;
+            color: var(--primary-color);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .search-container {
+                margin-top: 120px;
+            }
+
+            .popular-grid,
+            .category-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Previous navigation and search bar code remains... -->
-
-    <!-- Cart Toggle Button -->
-    <div class="cart-toggle">
-        <i class="fas fa-shopping-cart"></i>
-    </div>
-
-    <!-- Shopping Cart -->
-    <div class="cart-container">
-        <div class="cart-header">
-            <h3>Shopping Cart</h3>
-            <i class="fas fa-times" id="close-cart"></i>
-        </div>
-        <div class="cart-items">
-            <!-- Cart items will be dynamically added here -->
-        </div>
-        <div class="cart-total">
-            <p>Total: $0.00</p>
-            <button class="checkout-button">Checkout</button>
-        </div>
-    </div>
-
-    <!-- View Controls -->
-    <div class="view-controls">
-        <button class="view-button active" data-view="all">All Products</button>
-        <button class="view-button" data-view="classified">Classified View</button>
-    </div>
-
-    <!-- Product Section -->
-    <section class="product-section">
-        <div id="all-products">
-            <!-- All products will be displayed here -->
-        </div>
-
-        <div id="classified-products" style="display: none;">
-            <div class="product-category">
-                <h2>Mobile Phones</h2>
-                <div class="product-list">
-                    <!-- Mobile phones will be dynamically added here -->
-                </div>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">Genuine</a>
+            <div class="nav-links">
+                <a href="#"><i class="fas fa-home"></i> Home</a>
+                <a href="#"><i class="fas fa-shopping-bag"></i> Orders</a>
+                <a href="#"><i class="fas fa-wallet"></i> Balance</a>
+                <a href="#"><i class="fas fa-info-circle"></i> About</a>
+                <a href="#" class="user-icon"><i class="fas fa-user-circle"></i></a>
             </div>
+        </div>
+    </nav>
 
-            <div class="product-category">
-                <h2>Laptops & PCs</h2>
-                <div class="product-list">
-                    <!-- Laptops and PCs will be dynamically added here -->
-                </div>
+    <!-- Search Bar -->
+    <div class="search-container">
+        <div class="search-bar">
+            <input type="text" class="search-input" placeholder="Search for products...">
+            <button class="search-button"><i class="fas fa-search"></i> Search</button>
+        </div>
+    </div>
+
+    <!-- Popular Section -->
+    <section class="popular-section">
+        <h2 class="section-title">Popular Products</h2>
+        <div class="popular-grid">
+            <div class="popular-item">Popular Item 1</div>
+            <div class="popular-item">Popular Item 2</div>
+            <div class="popular-item">Popular Item 3</div>
+            <div class="popular-item">Popular Item 4</div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories-section">
+        <h2 class="section-title">Product Categories</h2>
+        <div class="category-grid">
+            <div class="category-card">
+                <div class="category-icon"><i class="fas fa-mobile-alt"></i></div>
+                <div class="category-name">Mobile Phones</div>
             </div>
-
-            <!-- Add similar sections for other categories -->
+            <div class="category-card">
+                <div class="category-icon"><i class="fas fa-laptop"></i></div>
+                <div class="category-name">Laptops & PCs</div>
+            </div>
+            <div class="category-card">
+                <div class="category-icon"><i class="fas fa-watch"></i></div>
+                <div class="category-name">Smart Watches</div>
+            </div>
+            <div class="category-card">
+                <div class="category-icon"><i class="fas fa-headphones"></i></div>
+                <div class="category-name">Headphones</div>
+            </div>
+            <div class="category-card">
+                <div class="category-icon"><i class="fas fa-ear-listen"></i></div>
+                <div class="category-name">Earpods</div>
+            </div>
+            <div class="category-card">
+                <div class="category-icon"><i class="fas fa-tv"></i></div>
+                <div class="category-name">TVs</div>
+            </div>
         </div>
     </section>
 
     <script>
-        // Cart functionality
-        const cartToggle = document.querySelector('.cart-toggle');
-        const cartContainer = document.querySelector('.cart-container');
-        const closeCart = document.querySelector('#close-cart');
-
-        cartToggle.addEventListener('click', () => {
-            cartContainer.classList.add('active');
-        });
-
-        closeCart.addEventListener('click', () => {
-            cartContainer.classList.remove('active');
-        });
-
-        // View controls
-        const viewButtons = document.querySelectorAll('.view-button');
-        const allProducts = document.querySelector('#all-products');
-        const classifiedProducts = document.querySelector('#classified-products');
-
-        viewButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                viewButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
-
-                const view = button.dataset.view;
-                if (view === 'all') {
-                    allProducts.style.display = 'block';
-                    classifiedProducts.style.display = 'none';
-                } else {
-                    allProducts.style.display = 'none';
-                    classifiedProducts.style.display = 'block';
-                }
+        // Add click handlers for category cards
+        document.querySelectorAll('.category-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const category = card.querySelector('.category-name').textContent;
+                // Add your category navigation logic here
+                console.log(`Navigating to ${category}`);
             });
         });
 
-        // Add to cart functionality
-        function addToCart(product) {
-            const cartItems = document.querySelector('.cart-items');
-            const cartItem = document.createElement('div');
-            cartItem.classList.add('cart-item');
-            cartItem.innerHTML = `
-                <div class="item-details">
-                    <h4>${product.name}</h4>
-                    <p>$${product.price}</p>
-                </div>
-                <button class="remove-item">Remove</button>
-            `;
-            cartItems.appendChild(cartItem);
-            updateCartTotal();
-        }
-
-        function updateCartTotal() {
-            // Add logic to update cart total
-        }
+        // Add search functionality
+        document.querySelector('.search-button').addEventListener('click', () => {
+            const searchTerm = document.querySelector('.search-input').value;
+            // Add your search logic here
+            console.log(`Searching for: ${searchTerm}`);
+        });
     </script>
 </body>
 </html>
