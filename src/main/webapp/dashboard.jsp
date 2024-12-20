@@ -1,12 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="com.genuine.model.User" %>
-<%
-    User user = (User) session.getAttribute("user");
-    if(user == null) {
-        response.sendRedirect("login.jsp");
-        return;
-    }
-%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="com.genuine.model.*" %>
+<%@ page import="java.util.List" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -235,60 +231,60 @@
     <section class="popular-section">
         <h2 class="section-title">Popular Products</h2>
         <div class="popular-grid">
-            <div class="popular-item">Popular Item 1</div>
-            <div class="popular-item">Popular Item 2</div>
-            <div class="popular-item">Popular Item 3</div>
-            <div class="popular-item">Popular Item 4</div>
+            <c:forEach items="${popularProducts}" var="product">
+                <div class="popular-item">
+                    <img src="${product.imagePath}" alt="${product.name}">
+                    <h3>${product.name}</h3>
+                    <p>${product.company}</p>
+                    <p class="price">$${product.price}</p>
+                </div>
+            </c:forEach>
         </div>
     </section>
 
-    <!-- Categories Section -->
-    <section class="categories-section">
-        <h2 class="section-title">Product Categories</h2>
-        <div class="category-grid">
-            <div class="category-card">
-                <div class="category-icon"><i class="fas fa-mobile-alt"></i></div>
-                <div class="category-name">Mobile Phones</div>
-            </div>
-            <div class="category-card">
-                <div class="category-icon"><i class="fas fa-laptop"></i></div>
-                <div class="category-name">Laptops & PCs</div>
-            </div>
-            <div class="category-card">
-                <div class="category-icon"><i class="fas fa-watch"></i></div>
-                <div class="category-name">Smart Watches</div>
-            </div>
-            <div class="category-card">
-                <div class="category-icon"><i class="fas fa-headphones"></i></div>
-                <div class="category-name">Headphones</div>
-            </div>
-            <div class="category-card">
-                <div class="category-icon"><i class="fas fa-ear-listen"></i></div>
-                <div class="category-name">Earpods</div>
-            </div>
-            <div class="category-card">
-                <div class="category-icon"><i class="fas fa-tv"></i></div>
-                <div class="category-name">TVs</div>
-            </div>
-        </div>
-    </section>
+
+
+   <!-- Categories Section -->
+   <section class="categories-section">
+       <h2 class="section-title">Product Categories</h2>
+       <div class="category-grid">
+           <c:forEach items="${categories}" var="category">
+               <div class="category-card" data-category="${category}">
+                   <div class="category-icon">
+                       <i class="fas ${getCategoryIcon(category)}"></i>
+                   </div>
+                   <div class="category-name">${category}</div>
+                   <div class="category-products">
+                       <c:forEach items="${categoryProducts[category]}" var="product">
+                           <div class="product-card">
+                               <img src="${product.imagePath}" alt="${product.name}">
+                               <h4>${product.name}</h4>
+                               <p>${product.price}</p>
+                           </div>
+                       </c:forEach>
+                   </div>
+               </div>
+           </c:forEach>
+       </div>
+   </section>
 
     <script>
         // Add click handlers for category cards
         document.querySelectorAll('.category-card').forEach(card => {
-            card.addEventListener('click', () => {
-                const category = card.querySelector('.category-name').textContent;
-                // Add your category navigation logic here
-                console.log(`Navigating to ${category}`);
+                card.addEventListener('click', () => {
+                    const category = card.dataset.category;
+                    window.location.href = 'products?category=' + category;
+                });
             });
-        });
 
         // Add search functionality
-        document.querySelector('.search-button').addEventListener('click', () => {
-            const searchTerm = document.querySelector('.search-input').value;
-            // Add your search logic here
-            console.log(`Searching for: ${searchTerm}`);
-        });
+        // Update search functionality
+            document.querySelector('.search-button').addEventListener('click', () => {
+                const searchTerm = document.querySelector('.search-input').value;
+                if (searchTerm.trim()) {
+                    document.querySelector('form').submit();
+                }
+            });
     </script>
 </body>
 </html>
