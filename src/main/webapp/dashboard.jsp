@@ -74,46 +74,76 @@
             color: #cccccc;
         }
 
-        /* Floating Cart */
-        .cart-container {
-            position: fixed;
-            left: 10px;
-            top: 80px;
-            width: 300px;
-            background-color: var(--secondary-color);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            padding: 1rem;
-            border-radius: 8px;
-            z-index: 999;
+        .user-icon {
+            font-size: 1.2rem;
         }
 
-        .cart-title {
-            font-size: 1.2rem;
+        /* Search Bar */
+        .search-container {
+            margin-top: 80px;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-bar {
+            max-width: 600px;
+            width: 100%;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 2px solid var(--primary-color);
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .search-button {
+            padding: 0.8rem 1.5rem;
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-button:hover {
+            background-color: var(--hover-color);
+        }
+
+        /* Popular Section */
+        .popular-section {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
             margin-bottom: 1rem;
             color: var(--primary-color);
         }
 
-        .cart-items {
-            list-style: none;
-            max-height: 300px;
-            overflow-y: auto;
-            padding: 0;
-            margin: 0;
+        .popular-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
         }
 
-        .cart-items li {
+        .popular-item {
+            background-color: #f5f5f5;
+            height: 200px;
+            border-radius: 8px;
             display: flex;
-            justify-content: space-between;
-            margin-bottom: 1rem;
-        }
-
-        .cart-item-name {
-            font-size: 1rem;
-        }
-
-        .cart-item-remove {
-            color: red;
-            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #888;
         }
 
         /* Categories Section */
@@ -144,47 +174,37 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
+        .category-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
         .category-name {
             font-size: 1.1rem;
             color: var(--primary-color);
         }
 
-        /* Products Section */
-        .products-section {
-            padding: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
 
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-        }
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
 
-        .product-item {
-            background-color: #f5f5f5;
-            padding: 1rem;
-            border-radius: 8px;
-            text-align: center;
-        }
+            .search-container {
+                margin-top: 120px;
+            }
 
-        .product-name {
-            margin-bottom: 1rem;
-        }
-
-        .add-to-cart {
-            background-color: var(--primary-color);
-            color: var(--secondary-color);
-            padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .add-to-cart:hover {
-            background-color: var(--hover-color);
+            .popular-grid,
+            .category-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
         }
     </style>
 </head>
@@ -198,53 +218,76 @@
                 <a href="#"><i class="fas fa-shopping-bag"></i> Orders</a>
                 <a href="#"><i class="fas fa-wallet"></i> Balance</a>
                 <a href="#"><i class="fas fa-info-circle"></i> About</a>
+                <a href="#" class="user-icon"><i class="fas fa-user-circle"></i></a>
             </div>
         </div>
     </nav>
 
-    <!-- Floating Cart -->
-    <div class="cart-container">
-        <div class="cart-title">Your Cart</div>
-        <ul class="cart-items"></ul>
+    <!-- Search Bar -->
+    <div class="search-container">
+        <div class="search-bar">
+            <input type="text" class="search-input" placeholder="Search for products...">
+            <button class="search-button"><i class="fas fa-search"></i> Search</button>
+        </div>
     </div>
 
-    <!-- Categories Section -->
-    <section class="categories-section">
-        <h2>Product Categories</h2>
-        <div class="category-grid">
-            <div class="category-card" data-category="All">All Products</div>
-            <div class="category-card" data-category="Mobile Phones">Mobile Phones</div>
-            <div class="category-card" data-category="Laptops">Laptops</div>
+    <!-- Popular Section -->
+    <section class="popular-section">
+        <h2 class="section-title">Popular Products</h2>
+        <div class="popular-grid">
+            <div class="popular-item">Popular Item 1</div>
+            <div class="popular-item">Popular Item 2</div>
+            <div class="popular-item">Popular Item 3</div>
+            <div class="popular-item">Popular Item 4</div>
         </div>
     </section>
 
-    <!-- Products Section -->
-    <section class="products-section">
-        <h2>Products</h2>
-        <div class="product-grid">
-            <div class="product-item" data-category="Mobile Phones">
-                <div class="product-name">iPhone</div>
-                <button class="add-to-cart">Add to Cart</button>
+    <!-- Categories Section -->
+    <section class="categories-section">
+        <h2 class="section-title">Product Categories</h2>
+        <div class="category-grid">
+            <div class="category-card">
+                <div class="category-icon"><i class="fas fa-mobile-alt"></i></div>
+                <div class="category-name">Mobile Phones</div>
+            </div>
+            <div class="category-card">
+                <div class="category-icon"><i class="fas fa-laptop"></i></div>
+                <div class="category-name">Laptops & PCs</div>
+            </div>
+            <div class="category-card">
+                <div class="category-icon"><i class="fas fa-watch"></i></div>
+                <div class="category-name">Smart Watches</div>
+            </div>
+            <div class="category-card">
+                <div class="category-icon"><i class="fas fa-headphones"></i></div>
+                <div class="category-name">Headphones</div>
+            </div>
+            <div class="category-card">
+                <div class="category-icon"><i class="fas fa-ear-listen"></i></div>
+                <div class="category-name">Earpods</div>
+            </div>
+            <div class="category-card">
+                <div class="category-icon"><i class="fas fa-tv"></i></div>
+                <div class="category-name">TVs</div>
             </div>
         </div>
     </section>
 
     <script>
-        const cartItems = document.querySelector('.cart-items');
-
-        document.querySelectorAll('.add-to-cart').forEach(button => {
-            button.addEventListener('click', () => {
-                const item = button.closest('.product-item').querySelector('.product-name').textContent;
-                const listItem = document.createElement('li');
-                listItem.innerHTML = `<span class="cart-item-name">${item}</span> <span class="cart-item-remove">Remove</span>`;
-                cartItems.appendChild(listItem);
+        // Add click handlers for category cards
+        document.querySelectorAll('.category-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const category = card.querySelector('.category-name').textContent;
+                // Add your category navigation logic here
+                console.log(`Navigating to ${category}`);
             });
         });
 
-        document.querySelector('.cart-container').addEventListener('click', e => {
-            if (e.target.classList.contains('cart-item-remove')) {
-                e.target.closest('li').remove();
-            }
+        // Add search functionality
+        document.querySelector('.search-button').addEventListener('click', () => {
+            const searchTerm = document.querySelector('.search-input').value;
+            // Add your search logic here
+            console.log(`Searching for: ${searchTerm}`);
         });
     </script>
 </body>
