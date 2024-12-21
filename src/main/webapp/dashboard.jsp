@@ -196,51 +196,6 @@
                 font-size: 1.2rem;
             }
 
-            .product-controls {
-                display: flex;
-                align-items: center;
-                gap: 0.5rem;
-                margin-top: 1rem;
-            }
-
-            .quantity-control {
-                display: flex;
-                align-items: center;
-                gap: 0.5rem;
-                border: 1px solid #ddd;
-                border-radius: 4px;
-                padding: 0.2rem;
-            }
-
-            .qty-btn {
-                background: none;
-                border: none;
-                color: var(--primary-color);
-                cursor: pointer;
-                padding: 0.2rem 0.5rem;
-            }
-
-            .qty-input {
-                width: 40px;
-                text-align: center;
-                border: none;
-                font-size: 0.9rem;
-            }
-
-            .add-to-cart-btn {
-                background-color: var(--primary-color);
-                color: white;
-                border: none;
-                padding: 0.5rem 1rem;
-                border-radius: 4px;
-                cursor: pointer;
-                transition: background-color 0.3s ease;
-            }
-
-            .add-to-cart-btn:hover {
-                background-color: var(--hover-color);
-            }
-
 
         /* Categories Section */
         .categories-section {
@@ -565,20 +520,12 @@
                     <div class="popular-item">No products available</div>
                 <% } else {
                     for (Product product : popularProducts) { %>
-                        <div class="popular-item" data-product-id="<%= product.getId() %>">
+                        <div class="popular-item">
                             <img src="<%= product.getImagePath() %>" alt="<%= product.getName() %>" class="product-image">
                             <div class="product-name"><%= product.getName() %></div>
                             <div class="product-category"><%= product.getCategory() %></div>
                             <div class="product-company"><%= product.getCompany() %></div>
                             <div class="product-price">$<%= String.format("%.2f", product.getPrice()) %></div>
-                            <div class="product-controls">
-                                <div class="quantity-control">
-                                    <button class="qty-btn minus">-</button>
-                                    <input type="number" class="qty-input" value="1" min="1" max="99">
-                                    <button class="qty-btn plus">+</button>
-                                </div>
-                                <button class="add-to-cart-btn">Add to Cart</button>
-                            </div>
                         </div>
                     <% }
                 } %>
@@ -676,74 +623,20 @@
             popularContainer.addEventListener('mouseleave', () => isPaused = false);
 
         // Cart functionality
-            // Cart functionality
-            const cartToggle = document.querySelector('.cart-toggle');
-            const cartContainer = document.querySelector('.cart-container');
-            const mainContent = document.querySelector('.main-content');
-            let isCartOpen = false;
+                const cartToggle = document.querySelector('.cart-toggle');
+                const cartContainer = document.querySelector('.cart-container');
+                const mainContent = document.querySelector('.main-content');
+                let isCartOpen = false;
 
-            cartToggle.addEventListener('click', () => {
-                isCartOpen = !isCartOpen;
-                cartContainer.classList.toggle('open');
-                mainContent.classList.toggle('cart-closed');
-            });
-
-            // Initialize cart
-            let cart = new Map();
-
-            // Quantity control handlers
-            document.querySelectorAll('.quantity-control').forEach(control => {
-                const input = control.querySelector('.qty-input');
-                const minusBtn = control.querySelector('.minus');
-                const plusBtn = control.querySelector('.plus');
-
-                minusBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    let value = parseInt(input.value);
-                    if (value > 1) input.value = value - 1;
+                cartToggle.addEventListener('click', () => {
+                    isCartOpen = !isCartOpen;
+                    cartContainer.classList.toggle('open');
+                    mainContent.classList.toggle('cart-closed');
                 });
 
-                plusBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    let value = parseInt(input.value);
-                    if (value < 99) input.value = value + 1;
-                });
-
-                input.addEventListener('change', () => {
-                    let value = parseInt(input.value);
-                    if (value < 1) input.value = 1;
-                    if (value > 99) input.value = 99;
-                });
-            });
-
-            // Add to Cart functionality
-            document.querySelectorAll('.add-to-cart-btn').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const item = button.closest('.popular-item');
-                    const productId = item.dataset.productId;
-                    const quantity = parseInt(item.querySelector('.qty-input').value);
-                    const product = {
-                        id: productId,
-                        name: item.querySelector('.product-name').textContent,
-                        price: parseFloat(item.querySelector('.product-price').textContent.replace('$', '')),
-                        image: item.querySelector('.product-image').src,
-                        quantity: quantity
-                    };
-
-                    addToCart(product);
-                });
-            });
-
-            function addToCart(product) {
-                const cartItems = document.querySelector('.cart-items');
-                const existingItem = cart.get(product.id);
-
-                if (existingItem) {
-                    existingItem.quantity += product.quantity;
-                    updateCartItemDisplay(existingItem);
-                } else {
-                    cart.set(product.id, product);
+                // Sample function to add item to cart
+                function addToCart(product) {
+                    const cartItems = document.querySelector('.cart-items');
 
                     // Remove empty cart message if it exists
                     const emptyCart = cartItems.querySelector('.empty-cart');
@@ -751,98 +644,53 @@
                         emptyCart.remove();
                     }
 
-                    // Create new cart item
+                    // Create cart item
                     const cartItem = document.createElement('div');
                     cartItem.className = 'cart-item';
-                    cartItem.dataset.productId = product.id;
                     cartItem.innerHTML = `
                         <img src="${product.image}" alt="${product.name}" class="cart-item-image">
                         <div class="cart-item-details">
                             <div class="cart-item-name">${product.name}</div>
-                            <div class="cart-item-price">$${product.price.toFixed(2)}</div>
+                            <div class="cart-item-price">$${product.price}</div>
                             <div class="cart-item-actions">
                                 <button class="quantity-btn minus">-</button>
-                                <span class="quantity">${product.quantity}</span>
+                                <span class="quantity">1</span>
                                 <button class="quantity-btn plus">+</button>
                                 <i class="fas fa-trash remove-btn"></i>
                             </div>
                         </div>
                     `;
 
-                    // Add event listeners for cart item controls
-                    addCartItemListeners(cartItem);
                     cartItems.appendChild(cartItem);
-                }
-
-                updateCartCount();
-                updateCartTotal();
-            }
-
-            function addCartItemListeners(cartItem) {
-                const productId = cartItem.dataset.productId;
-                const minusBtn = cartItem.querySelector('.minus');
-                const plusBtn = cartItem.querySelector('.plus');
-                const removeBtn = cartItem.querySelector('.remove-btn');
-
-                minusBtn.addEventListener('click', () => {
-                    const product = cart.get(productId);
-                    if (product.quantity > 1) {
-                        product.quantity--;
-                        updateCartItemDisplay(product);
-                        updateCartTotal();
-                    }
-                });
-
-                plusBtn.addEventListener('click', () => {
-                    const product = cart.get(productId);
-                    if (product.quantity < 99) {
-                        product.quantity++;
-                        updateCartItemDisplay(product);
-                        updateCartTotal();
-                    }
-                });
-
-                removeBtn.addEventListener('click', () => {
-                    cart.delete(productId);
-                    cartItem.remove();
                     updateCartCount();
                     updateCartTotal();
-
-                    if (cart.size === 0) {
-                        addEmptyCartMessage();
-                    }
-                });
-            }
-
-            function updateCartItemDisplay(product) {
-                const cartItem = document.querySelector(`.cart-item[data-product-id="${product.id}"]`);
-                if (cartItem) {
-                    cartItem.querySelector('.quantity').textContent = product.quantity;
                 }
-            }
 
-            function updateCartCount() {
-                const cartCount = document.querySelector('.cart-count');
-                cartCount.textContent = cart.size;
-            }
+                function updateCartCount() {
+                    const cartCount = document.querySelector('.cart-count');
+                    const itemCount = document.querySelectorAll('.cart-item').length;
+                    cartCount.textContent = itemCount;
+                }
 
-            function updateCartTotal() {
-                let total = 0;
-                cart.forEach(product => {
-                    total += product.price * product.quantity;
-                });
-                document.querySelector('.cart-total span:last-child').textContent = `$${total.toFixed(2)}`;
-            }
+                function updateCartTotal() {
+                    // Add logic to calculate total
+                    // This is a placeholder
+                    const total = 0.00;
+                    document.querySelector('.cart-total span:last-child').textContent = `$${total.toFixed(2)}`;
+                }
 
-            function addEmptyCartMessage() {
-                const cartItems = document.querySelector('.cart-items');
-                cartItems.innerHTML = `
-                    <div class="empty-cart">
-                        <i class="fas fa-shopping-cart"></i>
-                        <p>Your cart is empty</p>
-                    </div>
-                `;
-            }
+                // Add click event listeners to popular items
+                document.querySelectorAll('.popular-item').forEach(item => {
+                    item.addEventListener('click', () => {
+                        // Example product data
+                        const product = {
+                            name: item.querySelector('.product-name').textContent,
+                            price: parseFloat(item.querySelector('.product-price').textContent.replace('$', '')),
+                            image: item.querySelector('.product-image').src
+                        };
+                        addToCart(product);
+                    });
+              });
     </script>
 </body>
 </html>
