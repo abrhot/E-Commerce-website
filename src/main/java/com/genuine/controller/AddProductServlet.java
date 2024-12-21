@@ -58,15 +58,6 @@ public class AddProductServlet extends HttpServlet {
                 case "pc":
                     insertPCSpecs(conn, productId, request);
                     break;
-                case "watch":
-                    insertWatchSpecs(conn, productId, request);
-                    break;
-                case "headset":
-                    insertHeadsetSpecs(conn, productId, request);
-                    break;
-                case "tv":
-                    insertTVSpecs(conn, productId, request);
-                    break;
             }
 
             conn.commit();
@@ -172,72 +163,6 @@ public class AddProductServlet extends HttpServlet {
         pstmt.setBoolean(11, Boolean.parseBoolean(request.getParameter("pc_touch")));
         pstmt.setBoolean(12, Boolean.parseBoolean(request.getParameter("pc_keyboard_light")));
         pstmt.setInt(13, Integer.parseInt(request.getParameter("pc_fans")));
-
-        pstmt.executeUpdate();
-    }
-    private void insertWatchSpecs(Connection conn, int productId, HttpServletRequest request)
-            throws SQLException {
-        String sql = "INSERT INTO watch_specs (product_id, model, storage, ram, rear_camera, " +
-                "front_camera, battery_capacity, charging_specs, connectivity, display_size, " +
-                "water_proof) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-        pstmt.setInt(1, productId);
-        pstmt.setString(2, request.getParameter("watch_model"));
-        pstmt.setString(3, request.getParameter("watch_storage"));
-        pstmt.setString(4, request.getParameter("watch_ram"));
-        pstmt.setString(5, request.getParameter("watch_rear_camera"));
-        pstmt.setString(6, request.getParameter("watch_front_camera"));
-        pstmt.setString(7, request.getParameter("watch_battery"));
-        pstmt.setString(8, request.getParameter("watch_charging"));
-        pstmt.setString(9, request.getParameter("watch_connectivity"));
-        pstmt.setString(10, request.getParameter("watch_display"));
-        pstmt.setString(11, request.getParameter("watch_waterproof"));
-
-        pstmt.executeUpdate();
-    }
-
-    private void insertHeadsetSpecs(Connection conn, int productId, HttpServletRequest request)
-            throws SQLException {
-        String sql = "INSERT INTO headset_specs (product_id, brand, battery_capacity, " +
-                "charging_specs, wireless_technology, noise_cancellation, color) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)";
-
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-        pstmt.setInt(1, productId);
-        pstmt.setString(2, request.getParameter("headset_brand"));
-        pstmt.setString(3, request.getParameter("headset_battery"));
-        pstmt.setString(4, request.getParameter("headset_charging"));
-        pstmt.setString(5, request.getParameter("headset_wireless"));
-        pstmt.setBoolean(6, Boolean.parseBoolean(request.getParameter("headset_noise_cancellation")));
-        pstmt.setString(7, request.getParameter("headset_color"));
-
-        pstmt.executeUpdate();
-    }
-
-    private void insertTVSpecs(Connection conn, int productId, HttpServletRequest request)
-            throws SQLException {
-        String sql = "INSERT INTO tv_specs (product_id, model, screen_size, screen_resolution, " +
-                "refresh_rate, operating_system, audio_system, backlight, num_speakers, " +
-                "wifi_specs, bluetooth_specs, usb_ports, hdmi_ports, memory, weight) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-        pstmt.setInt(1, productId);
-        pstmt.setString(2, request.getParameter("tv_model"));
-        pstmt.setString(3, request.getParameter("tv_screen_size"));
-        pstmt.setString(4, request.getParameter("tv_resolution"));
-        pstmt.setString(5, request.getParameter("tv_refresh_rate"));
-        pstmt.setString(6, request.getParameter("tv_os"));
-        pstmt.setString(7, request.getParameter("tv_audio"));
-        pstmt.setString(8, request.getParameter("tv_backlight"));
-        pstmt.setInt(9, Integer.parseInt(request.getParameter("tv_speakers")));
-        pstmt.setString(10, request.getParameter("tv_wifi"));
-        pstmt.setString(11, request.getParameter("tv_bluetooth"));
-        pstmt.setInt(12, Integer.parseInt(request.getParameter("tv_usb")));
-        pstmt.setInt(13, Integer.parseInt(request.getParameter("tv_hdmi")));
-        pstmt.setString(14, request.getParameter("tv_memory"));
-        pstmt.setString(15, request.getParameter("tv_weight"));
 
         pstmt.executeUpdate();
     }

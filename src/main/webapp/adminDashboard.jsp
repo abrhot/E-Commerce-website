@@ -169,10 +169,6 @@
                     <option value="">Select Category</option>
                     <option value="mobile">Mobile Phone</option>
                     <option value="pc">PC/Laptop</option>
-                    <option value="watch">Smart Watch</option>
-                    <option value="headset">Headset</option>
-                    <option value="tv">TV</option>
-
                 </select>
             </div>
 
@@ -188,7 +184,7 @@
 
             <div class="form-group">
                 <label>Price</label>
-                <input type="number" name="price $" step="0.01" required>
+                <input type="number" name="price" step="0.01" required>
             </div>
 
             <div class="form-group">
@@ -313,144 +309,6 @@
                 </div>
             </div>
 
-            <!-- Smart Watch Specifications -->
-            <div id="watchSpecs" class="specs-container" style="display: none;">
-                <h3>Smart Watch Specifications</h3>
-                <div class="form-group">
-                    <label>Model</label>
-                    <input type="text" name="watch_model">
-                </div>
-                <div class="form-group">
-                    <label>Storage</label>
-                    <input type="text" name="watch_storage">
-                </div>
-                <div class="form-group">
-                    <label>RAM</label>
-                    <input type="text" name="watch_ram">
-                </div>
-                <div class="form-group">
-                    <label>Rear Camera</label>
-                    <input type="text" name="watch_rear_camera">
-                </div>
-                <div class="form-group">
-                    <label>Front Camera</label>
-                    <input type="text" name="watch_front_camera">
-                </div>
-                <div class="form-group">
-                    <label>Battery Capacity</label>
-                    <input type="text" name="watch_battery">
-                </div>
-                <div class="form-group">
-                    <label>Charging Specifications</label>
-                    <input type="text" name="watch_charging">
-                </div>
-                <div class="form-group">
-                    <label>Connectivity</label>
-                    <input type="text" name="watch_connectivity">
-                </div>
-                <div class="form-group">
-                    <label>Display Size</label>
-                    <input type="text" name="watch_display">
-                </div>
-                <div class="form-group">
-                    <label>Water Proof Rating</label>
-                    <input type="text" name="watch_waterproof">
-                </div>
-            </div>
-
-            <!-- Headset Specifications -->
-            <div id="headsetSpecs" class="specs-container" style="display: none;">
-                <h3>Headset Specifications</h3>
-                <div class="form-group">
-                    <label>Brand</label>
-                    <input type="text" name="headset_brand">
-                </div>
-                <div class="form-group">
-                    <label>Battery Capacity</label>
-                    <input type="text" name="headset_battery">
-                </div>
-                <div class="form-group">
-                    <label>Charging Specifications</label>
-                    <input type="text" name="headset_charging">
-                </div>
-                <div class="form-group">
-                    <label>Wireless Technology</label>
-                    <input type="text" name="headset_wireless">
-                </div>
-                <div class="form-group">
-                    <label>Noise Cancellation</label>
-                    <select name="headset_noise_cancellation">
-                        <option value="false">No</option>
-                        <option value="true">Yes</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Color</label>
-                    <input type="text" name="headset_color">
-                </div>
-            </div>
-
-            <!-- TV Specifications -->
-            <div id="tvSpecs" class="specs-container" style="display: none;">
-                <h3>TV Specifications</h3>
-                <div class="form-group">
-                    <label>Model</label>
-                    <input type="text" name="tv_model">
-                </div>
-                <div class="form-group">
-                    <label>Screen Size</label>
-                    <input type="text" name="tv_screen_size">
-                </div>
-                <div class="form-group">
-                    <label>Screen Resolution</label>
-                    <input type="text" name="tv_resolution">
-                </div>
-                <div class="form-group">
-                    <label>Refresh Rate</label>
-                    <input type="text" name="tv_refresh_rate">
-                </div>
-                <div class="form-group">
-                    <label>Operating System</label>
-                    <input type="text" name="tv_os">
-                </div>
-                <div class="form-group">
-                    <label>Audio System</label>
-                    <input type="text" name="tv_audio">
-                </div>
-                <div class="form-group">
-                    <label>Backlight</label>
-                    <input type="text" name="tv_backlight">
-                </div>
-                <div class="form-group">
-                    <label>Number of Speakers</label>
-                    <input type="number" name="tv_speakers" min="0">
-                </div>
-                <div class="form-group">
-                    <label>WiFi Specifications</label>
-                    <input type="text" name="tv_wifi">
-                </div>
-                <div class="form-group">
-                    <label>Bluetooth Specifications</label>
-                    <input type="text" name="tv_bluetooth">
-                </div>
-                <div class="form-group">
-                    <label>USB Ports</label>
-                    <input type="number" name="tv_usb" min="0">
-                </div>
-                <div class="form-group">
-                    <label>HDMI Ports</label>
-                    <input type="number" name="tv_hdmi" min="0">
-                </div>
-                <div class="form-group">
-                    <label>Memory</label>
-                    <input type="text" name="tv_memory">
-                </div>
-                <div class="form-group">
-                    <label>Weight</label>
-                    <input type="text" name="tv_weight">
-                </div>
-            </div>
-
             <button type="submit" class="button">Add Product</button>
         </form>
     </div>
@@ -458,16 +316,13 @@
     <script>
         function showSpecifications() {
             const category = document.getElementById('category').value;
-            // Hide all spec containers
             document.getElementById('mobileSpecs').style.display = 'none';
             document.getElementById('pcSpecs').style.display = 'none';
-            document.getElementById('watchSpecs').style.display = 'none';
-            document.getElementById('headsetSpecs').style.display = 'none';
-            document.getElementById('tvSpecs').style.display = 'none';
 
-            // Show the selected category's specs
-            if (category) {
-                document.getElementById(category + 'Specs').style.display = 'block';
+            if (category === 'mobile') {
+                document.getElementById('mobileSpecs').style.display = 'block';
+            } else if (category === 'pc') {
+                document.getElementById('pcSpecs').style.display = 'block';
             }
         }
 

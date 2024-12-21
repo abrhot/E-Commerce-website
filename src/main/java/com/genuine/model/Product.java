@@ -3,16 +3,14 @@ package com.genuine.model;
 import java.time.LocalDateTime;
 
 public class Product {
-        private int productId;
-        private String category;
-        private String name;
-        private String company;
-        private double price;
-        private String description;
-        private String imagePath;
-        private LocalDateTime createdAt;
-        private Object specs; // Can be MobileSpec, LaptopSpec, etc.
-
+    private int productId;
+    private String category;
+    private String name;
+    private String company;
+    private double price;
+    private String description;
+    private String imagePath;
+    private LocalDateTime createdAt;
 
     public int getProductId() {
         return productId;
@@ -77,9 +75,6 @@ public class Product {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-    public void setSpecs(Object specs) {
-        this.specs = specs;
-    }
 
 // Getters and setters
-    }
+}
