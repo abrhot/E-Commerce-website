@@ -1,11 +1,18 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.genuine.model.User" %>
+<%@ page import="com.genuine.model.Product" %>
+<%@ page import="com.genuine.dao.ProductDAO" %>
+<%@ page import="java.util.List" %>
 <%
     User user = (User) session.getAttribute("user");
     if(user == null) {
         response.sendRedirect("login.jsp");
         return;
     }
+
+    // Get random products
+    ProductDAO productDAO = new ProductDAO();
+    List<Product> popularProducts = productDAO.getRandomProducts(10);
 %>
 <!DOCTYPE html>
 <html>
@@ -117,34 +124,78 @@
 
         /* Popular Section */
         .popular-section {
-            padding: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+                padding: 2rem;
+                max-width: 1200px;
+                margin: 0 auto;
+                overflow: hidden;
+            }
 
-        .section-title {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--primary-color);
-        }
+            .popular-container {
+                overflow-x: auto;
+                white-space: nowrap;
+                padding: 1rem 0;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none; /* Firefox */
+            }
 
-        .popular-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
+            .popular-container::-webkit-scrollbar {
+                display: none; /* Chrome, Safari, Edge */
+            }
 
-        .popular-item {
-            background-color: #f5f5f5;
-            height: 200px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            color: #888;
-        }
+            .popular-grid {
+                display: inline-flex;
+                gap: 1.5rem;
+                padding: 0.5rem;
+            }
+
+            .popular-item {
+                background-color: #ffffff;
+                border-radius: 8px;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                width: 250px;
+                padding: 1rem;
+                transition: transform 0.3s ease;
+                cursor: pointer;
+                white-space: normal;
+            }
+
+            .popular-item:hover {
+                transform: translateY(-5px);
+            }
+
+            .product-image {
+                width: 100%;
+                height: 180px;
+                object-fit: cover;
+                border-radius: 8px;
+                margin-bottom: 1rem;
+            }
+
+            .product-name {
+                font-size: 1.1rem;
+                font-weight: bold;
+                margin-bottom: 0.5rem;
+                color: var(--primary-color);
+            }
+
+            .product-category {
+                color: #666;
+                font-size: 0.9rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .product-company {
+                color: #888;
+                font-size: 0.9rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .product-price {
+                color: #2ecc71;
+                font-weight: bold;
+                font-size: 1.2rem;
+            }
+
 
         /* Categories Section */
         .categories-section {
@@ -234,11 +285,22 @@
     <!-- Popular Section -->
     <section class="popular-section">
         <h2 class="section-title">Popular Products</h2>
-        <div class="popular-grid">
-            <div class="popular-item">Popular Item 1</div>
-            <div class="popular-item">Popular Item 2</div>
-            <div class="popular-item">Popular Item 3</div>
-            <div class="popular-item">Popular Item 4</div>
+        <div class="popular-container">
+            <div class="popular-grid">
+                <% if (popularProducts.isEmpty()) { %>
+                    <div class="popular-item">No products available</div>
+                <% } else {
+                    for (Product product : popularProducts) { %>
+                        <div class="popular-item">
+                            <img src="<%= product.getImagePath() %>" alt="<%= product.getName() %>" class="product-image">
+                            <div class="product-name"><%= product.getName() %></div>
+                            <div class="product-category"><%= product.getCategory() %></div>
+                            <div class="product-company"><%= product.getCompany() %></div>
+                            <div class="product-price">$<%= String.format("%.2f", product.getPrice()) %></div>
+                        </div>
+                    <% }
+                } %>
+            </div>
         </div>
     </section>
 
@@ -289,6 +351,47 @@
             // Add your search logic here
             console.log(`Searching for: ${searchTerm}`);
         });
+
+
+        // Auto-scroll for popular products
+            const popularContainer = document.querySelector('.popular-container');
+            let scrollAmount = 0;
+            const scrollSpeed = 1;
+            const scrollPause = 3000; // 3 seconds pause at each end
+            let scrollDirection = 1;
+            let isPaused = false;
+
+            function autoScroll() {
+                if (!isPaused) {
+                    scrollAmount += scrollSpeed * scrollDirection;
+                    popularContainer.scrollLeft = scrollAmount;
+
+                    // Check if reached the end
+                    if (scrollAmount >= (popularContainer.scrollWidth - popularContainer.clientWidth)) {
+                        isPaused = true;
+                        setTimeout(() => {
+                            scrollDirection = -1;
+                            isPaused = false;
+                        }, scrollPause);
+                    }
+                    // Check if reached the start
+                    else if (scrollAmount <= 0) {
+                        isPaused = true;
+                        setTimeout(() => {
+                            scrollDirection = 1;
+                            isPaused = false;
+                        }, scrollPause);
+                    }
+                }
+                requestAnimationFrame(autoScroll);
+            }
+
+            // Start auto-scroll
+            autoScroll();
+
+            // Pause auto-scroll on hover
+            popularContainer.addEventListener('mouseenter', () => isPaused = true);
+            popularContainer.addEventListener('mouseleave', () => isPaused = false);
     </script>
 </body>
 </html>
