@@ -198,65 +198,7 @@
 
 
         /* Categories Section */
-        .categories-section {
-            padding: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
 
-        .category-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .category-card {
-            background-color: var(--secondary-color);
-            border: 1px solid #eee;
-            border-radius: 8px;
-            padding: 1rem;
-            text-align: center;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .category-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .category-icon {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: var(--primary-color);
-        }
-
-        .category-name {
-            font-size: 1.1rem;
-            color: var(--primary-color);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .nav-container {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .nav-links {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .search-container {
-                margin-top: 120px;
-            }
-
-            .popular-grid,
-            .category-grid {
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            }
-        }
 
         /* Cart Styles */
             .cart-container {
@@ -524,7 +466,7 @@
                             <img src="<%= product.getImagePath() %>" alt="<%= product.getName() %>" class="product-image">
                             <div class="product-name"><%= product.getName() %></div>
                             <div class="product-category"><%= product.getCategory() %></div>
-                       i,,     <div class="product-company"><%= product.getCompany() %></div>
+                            <div class="product-company"><%= product.getCompany() %></div>
                             <div class="product-price">$<%= String.format("%.2f", product.getPrice()) %></div>
                         </div>
                     <% }
