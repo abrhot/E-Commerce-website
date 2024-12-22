@@ -9,7 +9,7 @@
     <%
         ProductDAO productDAO = new ProductDAO();
         // Updated categories to match your database
-        String[] categories = {"mobile", "pc & laptop", "watch", "headset", "tv"};
+        String[] categories = {"Mobile", "pc", "watch", "Headset", "TV"};
 
         for(String category : categories) {
             List<Product> products = productDAO.getProductsByCategory(category);
@@ -27,7 +27,6 @@
                         <div class="product-name">${product.name}</div>
                         <div class="product-company">${product.company}</div>
                         <div class="product-price">$${product.price}</div>
-                        <div class="product-description">${product.description}</div>
                         <div class="quantity-controls">
                             <button class="qty-btn" onclick="decreaseQty(${product.productId})">-</button>
                             <input type="number" id="qty-${product.productId}" class="qty-input" value="1" min="1" max="10">

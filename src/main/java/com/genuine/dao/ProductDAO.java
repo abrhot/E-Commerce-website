@@ -2,7 +2,7 @@ package com.genuine.dao;
 
 import com.genuine.model.Product;
 import java.sql.*;
-        import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDateTime;
 
@@ -38,20 +38,13 @@ public class ProductDAO {
     // Add the getProductsByCategory method here
     public List<Product> getProductsByCategory(String category) {
         List<Product> products = new ArrayList<>();
-        String sql = "SELECT p.*, " +
-                "CASE " +
-                "   WHEN p.category = 'mobile' THEN ms.spec_id " +
-                "   WHEN p.category = 'pc & laptop' THEN ps.spec_id " +
-                "   WHEN p.category = 'watch' THEN ws.spec_id " +
-                "   WHEN p.category = 'headset' THEN hs.spec_id " +
-                "   WHEN p.category = 'tv' THEN ts.spec_id " +
-                "END as spec_id " +
+        String sql = "SELECT p.* " +
                 "FROM products p " +
-                "LEFT JOIN mobile_specs ms ON p.product_id = ms.product_id " +
-                "LEFT JOIN pc_specs ps ON p.product_id = ps.product_id " +
-                "LEFT JOIN watch_specs ws ON p.product_id = ws.product_id " +
-                "LEFT JOIN headset_specs hs ON p.product_id = hs.product_id " +
-                "LEFT JOIN tv_specs ts ON p.product_id = ts.product_id " +
+                "LEFT JOIN pc_specs ps ON p.category = 'pc' AND p.product_id = ps.product_id " +
+                "LEFT JOIN mobile_specs ms ON p.category = 'mobile' AND p.product_id = ms.product_id " +
+                "LEFT JOIN watch_specs ws ON p.category = 'watch' AND p.product_id = ws.product_id " +
+                "LEFT JOIN headset_specs hs ON p.category = 'headset' AND p.product_id = hs.product_id " +
+                "LEFT JOIN tv_specs ts ON p.category = 'tv' AND p.product_id = ts.product_id " +
                 "WHERE p.category = ? " +
                 "ORDER BY p.created_at DESC";
 
@@ -78,4 +71,5 @@ public class ProductDAO {
         }
         return products;
     }
+
 }

@@ -104,7 +104,6 @@ public class Product {
                 product.setCompany(rs.getString("company"));
                 product.setPrice(rs.getDouble("price"));
                 product.setImagePath(rs.getString("image_path"));
-                product.setDescription(rs.getString("description"));
                 product.setCreatedAt(rs.getTimestamp("created_at").toLocalDateTime());
                 products.add(product);
             }
