@@ -4,6 +4,7 @@
 <%@ page import="java.util.List"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<!-- Add this section where you want to display category-wise products in your existing dashboard -->
 
 <style>
     .category-section {
