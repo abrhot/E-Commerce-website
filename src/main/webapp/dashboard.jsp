@@ -197,94 +197,6 @@
             }
 
 
-        /* Categories Section */
-         .category-section {
-                 margin: 20px 0;
-             }
-
-             .category-title {
-                 font-size: 24px;
-                 margin-bottom: 15px;
-                 color: #333;
-             }
-
-             .products-container {
-                 overflow-x: auto;
-                 white-space: nowrap;
-                 padding: 10px 0;
-             }
-
-             .product-card {
-                 display: inline-block;
-                 width: 250px;
-                 margin-right: 15px;
-                 vertical-align: top;
-                 background: #fff;
-                 border-radius: 8px;
-                 box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-                 padding: 15px;
-                 white-space: normal;
-             }
-
-             .product-image {
-                 width: 100%;
-                 height: 200px;
-                 object-fit: cover;
-                 border-radius: 4px;
-             }
-
-             .product-details {
-                 margin-top: 10px;
-             }
-
-             .product-name {
-                 font-weight: bold;
-                 margin: 5px 0;
-             }
-
-             .product-company {
-                 color: #666;
-                 font-size: 0.9em;
-             }
-
-             .product-price {
-                 color: #2ecc71;
-                 font-weight: bold;
-                 margin: 5px 0;
-             }
-
-             .quantity-controls {
-                 display: flex;
-                 align-items: center;
-                 margin: 10px 0;
-             }
-
-             .qty-btn {
-                 padding: 5px 10px;
-                 border: none;
-                 background: #f1f1f1;
-                 cursor: pointer;
-             }
-
-             .qty-input {
-                 width: 40px;
-                 text-align: center;
-                 margin: 0 10px;
-             }
-
-             .add-to-cart-btn {
-                 width: 100%;
-                 padding: 8px;
-                 background: #3498db;
-                 color: white;
-                 border: none;
-                 border-radius: 4px;
-                 cursor: pointer;
-             }
-
-             .add-to-cart-btn:hover {
-                 background: #2980b9;
-             }
 
         /* Cart Styles */
             .cart-container {
@@ -559,38 +471,12 @@
                 } %>
             </div>
         </div>
+    <!-- Include the category products section -->
+        <jsp:include page="category-products.jsp" />
+
     </section>
 
-    <!-- Categories Section -->
-    <section class="categories-section">
-        <h2 class="section-title">Product Categories</h2>
-        <div class="category-grid">
-            <div class="category-card">
-                <div class="category-icon"><i class="fas fa-mobile-alt"></i></div>
-                <div class="category-name">Mobile Phones</div>
-            </div>
-            <div class="category-card">
-                <div class="category-icon"><i class="fas fa-laptop"></i></div>
-                <div class="category-name">Laptops & PCs</div>
-            </div>
-            <div class="category-card">
-                <div class="category-icon"><i class="fas fa-watch"></i></div>
-                <div class="category-name">Smart Watches</div>
-            </div>
-            <div class="category-card">
-                <div class="category-icon"><i class="fas fa-headphones"></i></div>
-                <div class="category-name">Headphones</div>
-            </div>
-            <div class="category-card">
-                <div class="category-icon"><i class="fas fa-ear-listen"></i></div>
-                <div class="category-name">Earpods</div>
-            </div>
-            <div class="category-card">
-                <div class="category-icon"><i class="fas fa-tv"></i></div>
-                <div class="category-name">TVs</div>
-            </div>
-        </div>
-    </section>
+
 
     <script>
 
