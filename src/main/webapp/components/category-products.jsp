@@ -1,20 +1,22 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.genuine.dao.ProductDAO"%>
+<%@ page import="com.genuine.model.Product"%>
+<%@ page import="java.util.List"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!-- Main container for category-wise products display -->
 <div class="category-products-wrapper">
     <%
-        // Initialize ProductDAO to fetch products
         ProductDAO productDAO = new ProductDAO();
-        // Define available product categories
+        // Updated categories to match your database
         String[] categories = {"mobile", "pc & laptop", "watch", "headset", "tv"};
 
-        // Loop through each category
         for(String category : categories) {
-            // Get products for current category
             List<Product> products = productDAO.getProductsByCategory(category);
-            request.setAttribute("products", products);
-            request.setAttribute("category", category);
+            if(products != null && !products.isEmpty()) {
+                request.setAttribute("products", products);
+                request.setAttribute("category", category);
     %>
-
     <div class="category-section">
         <h2 class="category-title"><%= category.toUpperCase() %></h2>
         <div class="products-container">
@@ -25,6 +27,7 @@
                         <div class="product-name">${product.name}</div>
                         <div class="product-company">${product.company}</div>
                         <div class="product-price">$${product.price}</div>
+                        <div class="product-description">${product.description}</div>
                         <div class="quantity-controls">
                             <button class="qty-btn" onclick="decreaseQty(${product.productId})">-</button>
                             <input type="number" id="qty-${product.productId}" class="qty-input" value="1" min="1" max="10">
@@ -36,5 +39,8 @@
             </c:forEach>
         </div>
     </div>
-    <% } %>
+    <%
+            }
+        }
+    %>
 </div>
