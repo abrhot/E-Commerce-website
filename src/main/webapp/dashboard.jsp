@@ -32,7 +32,6 @@
     <script src="js/popular.js"></script>
 
 
-    <!-- Include the category products section -->
-    <jsp:include page="components/category-products.jsp" />
+
 </body>
 </html>
