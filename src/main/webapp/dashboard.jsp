@@ -18,11 +18,13 @@
     <link rel="stylesheet" href="components/styles/search.css">
     <link rel="stylesheet" href="components/styles/cart.css">
     <link rel="stylesheet" href="components/styles/popular.css">
+    <link rel="stylesheet" href="components/styles/category-products.css">
 </head>
 <body>
     <jsp:include page="components/navbar.jsp" />
     <jsp:include page="components/search.jsp" />
     <jsp:include page="components/cart.jsp" />
+    <jsp:include page="components/category-products.jsp" />
 
     <div class="main-content cart-closed">
         <jsp:include page="components/popular.jsp" />
@@ -30,6 +32,7 @@
 
     <script src="js/cart.js"></script>
     <script src="js/popular.js"></script>
+    <script src="js/category-products.js"></script>
 
 
 
