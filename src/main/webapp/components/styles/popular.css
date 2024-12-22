@@ -1,0 +1,74 @@
+/* Popular Section */
+        .popular-section {
+                padding: 2rem;
+                max-width: 1200px;
+                margin: 0 auto;
+                overflow: hidden;
+            }
+
+            .popular-container {
+                overflow-x: auto;
+                white-space: nowrap;
+                padding: 1rem 0;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none; /* Firefox */
+            }
+
+            .popular-container::-webkit-scrollbar {
+                display: none; /* Chrome, Safari, Edge */
+            }
+
+            .popular-grid {
+                display: inline-flex;
+                gap: 1.5rem;
+                padding: 0.5rem;
+            }
+
+            .popular-item {
+                background-color: #ffffff;
+                border-radius: 8px;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                width: 250px;
+                padding: 1rem;
+                transition: transform 0.3s ease;
+                cursor: pointer;
+                white-space: normal;
+            }
+
+            .popular-item:hover {
+                transform: translateY(-5px);
+            }
+
+            .product-image {
+                width: 100%;
+                height: 180px;
+                object-fit: cover;
+                border-radius: 8px;
+                margin-bottom: 1rem;
+            }
+
+            .product-name {
+                font-size: 1.1rem;
+                font-weight: bold;
+                margin-bottom: 0.5rem;
+                color: var(--primary-color);
+            }
+
+            .product-category {
+                color: #666;
+                font-size: 0.9rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .product-company {
+                color: #888;
+                font-size: 0.9rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .product-price {
+                color: #2ecc71;
+                font-weight: bold;
+                font-size: 1.2rem;
+            }
+
