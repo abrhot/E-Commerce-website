@@ -1,16 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Login</title>
-    <style>
-        .login-container {
-            width: 300px;
-            margin: 100px auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
+
         .form-group {
             margin-bottom: 15px;
         }
