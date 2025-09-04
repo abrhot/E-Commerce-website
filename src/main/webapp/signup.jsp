@@ -1,4 +1,10 @@
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign Up</title>
+    <style>
+        * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
